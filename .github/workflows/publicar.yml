@@ -1,0 +1,39 @@
+name: Publicar versión
+
+# Se activa cuando llega la rama "subida" con GeoNivelPro.apk, version.txt y notas.md.
+# Crea la versión (Releases), adjunta el APK y borra la rama.
+on:
+  push:
+    branches: [subida]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publicar
+  cancel-in-progress: false
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+      - name: Crear versión
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          VERSION=$(cat version.txt)
+          sha256sum GeoNivelPro.apk > GeoNivelPro.apk.sha256
+          EXTRA=""
+          if [ -f beta.txt ]; then EXTRA="--prerelease"; fi
+          if gh release view "v$VERSION" --repo "${{ github.repository }}" > /dev/null 2>&1; then
+            gh release upload "v$VERSION" GeoNivelPro.apk GeoNivelPro.apk.sha256 --clobber --repo "${{ github.repository }}"
+          else
+            gh release create "v$VERSION" GeoNivelPro.apk GeoNivelPro.apk.sha256 \
+              --repo "${{ github.repository }}" --target main \
+              --title "GeoNivel Pro $VERSION" --notes-file notas.md $EXTRA
+          fi
+          git push origin --delete subida
