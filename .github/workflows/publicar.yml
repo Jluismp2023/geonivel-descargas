@@ -27,13 +27,13 @@ jobs:
           set -euo pipefail
           VERSION=$(cat version.txt)
           sha256sum GeoNivelPro.apk > GeoNivelPro.apk.sha256
-          EXTRA=""
-          if [ -f beta.txt ]; then EXTRA="--prerelease"; fi
           if gh release view "v$VERSION" --repo "${{ github.repository }}" > /dev/null 2>&1; then
             gh release upload "v$VERSION" GeoNivelPro.apk GeoNivelPro.apk.sha256 --clobber --repo "${{ github.repository }}"
           else
             gh release create "v$VERSION" GeoNivelPro.apk GeoNivelPro.apk.sha256 \
               --repo "${{ github.repository }}" --target main \
-              --title "GeoNivel Pro $VERSION" --notes-file notas.md $EXTRA
+              --title "GeoNivel Pro $VERSION" --notes-file notas.md --latest
           fi
+          # Siempre como versión normal y "última": el botón de la página usa releases/latest
+          gh release edit "v$VERSION" --repo "${{ github.repository }}" --prerelease=false --latest --notes-file notas.md
           git push origin --delete subida
