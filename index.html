@@ -99,6 +99,22 @@
   details[open] summary::after { content: "–"; }
   details p { margin: 0; padding: 0 20px 18px; color: var(--muted); }
 
+  .plans { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; align-items: start; }
+  .plan { background: var(--panel); border: 1px solid var(--line); border-radius: 20px; padding: 28px; }
+  .plan.premium { border-color: #e0601f66; background: linear-gradient(180deg, #e0601f14, var(--panel) 40%); }
+  .plan h3 { margin: 0; font-size: 20px; }
+  .price { font-size: 42px; font-weight: 700; margin: 8px 0 2px; }
+  .price small { font-size: 15px; font-weight: 500; color: var(--muted); }
+  .plan > ul { list-style: none; padding: 0; margin: 20px 0 0; }
+  .plan > ul > li { padding: 9px 0 9px 30px; border-top: 1px solid var(--line); position: relative; font-size: 15px; }
+  .plan > ul > li::before { content: "✓"; position: absolute; left: 4px; color: var(--ok); font-weight: 700; }
+  .plan > ul > li.no { color: var(--soft); }
+  .plan > ul > li.no::before { content: "–"; color: var(--soft); }
+  .buy { margin-top: 24px; background: var(--bg2); border: 1px dashed #e0601f55; border-radius: 14px; padding: 18px 20px; }
+  .buy h4 { margin: 0 0 8px; font-size: 15px; color: #f2a06f; }
+  .buy ol { margin: 0 0 14px; padding-left: 20px; color: var(--muted); font-size: 14px; }
+  .buy li { margin: 4px 0; }
+  .btn-paypal { background: #ffc439; color: #111; }
   .legal { background: var(--panel); border-left: 3px solid var(--accent); border-radius: 10px; padding: 18px 22px; color: var(--muted); font-size: 14px; }
   footer { padding: 36px 0 48px; color: var(--soft); font-size: 14px; border-top: 1px solid #ffffff0d; }
   footer .wrap { display: flex; flex-wrap: wrap; gap: 14px 28px; align-items: center; }
@@ -133,6 +149,7 @@
     <nav class="nav-links" aria-label="Secciones">
       <a href="#funciones">Funciones</a>
       <a href="#capturas">Capturas</a>
+      <a href="#premium">Premium</a>
       <a href="#instalar">Instalar</a>
       <a href="#preguntas">Preguntas</a>
     </nav>
@@ -154,7 +171,7 @@
           </a>
           <a class="btn btn-ghost" href="#capturas"><span>Ver cómo funciona</span></a>
         </div>
-        <div class="chips"><span>Gratis con anuncios discretos</span><span>Funciona sin internet</span><span>Datos solo en su teléfono</span></div>
+        <div class="chips"><span>Gratis</span><span>Premium opcional</span><span>Funciona sin internet</span><span>Datos solo en su teléfono</span></div>
         <div class="play">Próximamente en <b>Google Play</b></div>
       </div>
       <div class="phones">
@@ -195,6 +212,51 @@
     </div>
   </section>
 
+  <section id="premium">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Gratis para trabajar. Premium para entregar.</h2>
+        <p>La versión gratuita tiene todo el cálculo de campo. Premium quita los anuncios y agrega lo que ahorra tiempo en la oficina. Es un pago único por teléfono.</p>
+      </div>
+      <div class="plans">
+        <div class="plan">
+          <h3>Gratis</h3>
+          <div class="price">USD 0</div>
+          <ul>
+            <li>Libreta, H+I, cotas y cierre con tolerancia</li>
+            <li>Control de tubería y bordillos contra diseño</li>
+            <li>Libreta en PDF</li>
+            <li>Respaldo y restauración</li>
+            <li>Hasta 3 proyectos</li>
+            <li class="no">Banner de anuncios en las listas</li>
+          </ul>
+        </div>
+        <div class="plan premium">
+          <h3>Premium</h3>
+          <div class="price">USD 4,99 <small>pago único</small></div>
+          <ul>
+            <li>Todo lo de la versión gratuita</li>
+            <li>Sin anuncios</li>
+            <li>Exportación a Excel</li>
+            <li>PDF con el nombre y el logo de su empresa</li>
+            <li>Perfil longitudinal de obra contra diseño en el PDF</li>
+            <li>Proyectos ilimitados</li>
+          </ul>
+          <div class="buy">
+            <h4>Cómo activarlo</h4>
+            <ol>
+              <li>Pague por PayPal (o envíe el pago a <strong>jluismacasp@gmail.com</strong>).</li>
+              <li>En la app toque <strong>Premium</strong> y copie el código del teléfono.</li>
+              <li>Envíe ese código y el comprobante a <a href="mailto:jluismp2023@gmail.com?subject=GeoNivel%20Premium">jluismp2023@gmail.com</a>.</li>
+              <li>Escriba en la app el código de activación que recibirá por correo.</li>
+            </ol>
+            <a class="btn btn-paypal" href="https://paypal.me/jluismacasp/4.99USD">Pagar USD 4,99 con PayPal</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section id="instalar">
     <div class="wrap">
       <div class="section-head">
@@ -231,7 +293,8 @@
       <details><summary>¿Qué tolerancias usa?</summary><p>Para el cierre de nivelación, T = 12·√K mm. Para el control contra diseño, ±10 mm en tubería y ±6 mm en bordillos. Todas se pueden cambiar en cada hoja según lo que pida el pliego o la fiscalización.</p></details>
       <details><summary>¿Cómo nombro los puntos para comparar con el diseño?</summary><p>Con su abscisa, por ejemplo <span class="mono">0+020</span> o <span class="mono">1+100</span>. La app interpola la cota de proyecto entre los pozos o puntos de diseño que usted cargue.</p></details>
       <details><summary>¿Dónde quedan mis datos?</summary><p>Solo en su teléfono. El desarrollador no recibe nada. Lea la <a href="privacidad.html">política de privacidad</a>.</p></details>
-      <details><summary>¿Tiene anuncios?</summary><p>Desde la versión 1.1.0 muestra un banner pequeño en las listas de proyectos y hojas, nunca en la libreta ni en los cálculos. La app le pregunta antes si los acepta.</p></details>
+      <details><summary>¿Tiene anuncios?</summary><p>La versión gratuita muestra un banner pequeño en las listas de proyectos y hojas, nunca en la libreta ni en los cálculos, y le pregunta antes si los acepta. Premium no tiene anuncios.</p></details>
+      <details><summary>¿Premium sirve en varios teléfonos?</summary><p>Cada código de activación vale para un teléfono. Si reinstala la app en el mismo teléfono, vuelva a escribir el mismo código. Si cambia de teléfono, escriba al correo de contacto.</p></details>
       <details><summary>¿Cuándo llega a Google Play?</summary><p>Pronto. Esta versión de prueba sirve para recoger comentarios de uso en obra antes de publicarla en la tienda.</p></details>
       <details><summary>¿Qué pasa cuando salga en Google Play?</summary><p>La versión de Google Play viene con otra firma, así que no se instala encima de la de esta página. Para pasarse: cree un respaldo en <strong>Proyectos › Respaldo</strong>, desinstale la versión de esta página, instale la de Google Play y restaure el respaldo.</p></details>
       <details><summary>¿Es seguro instalar el APK?</summary><p>Se publica solo en esta página. No pide permisos de contactos, cámara ni ubicación.</p></details>
